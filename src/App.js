@@ -3,7 +3,7 @@ import TablePage from './Page/TablePage'
 
 function App() {
   return (
-    <div className="table">
+    <div className="container">
     <TablePage />
     </div>
   );
