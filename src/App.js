@@ -1,9 +1,10 @@
 import './App.css';
+import Api from './api/api'
 
 function App() {
   return (
-    <div className="App">
-      Load Options Interview - New App
+    <div className="table">
+    <Api />
     </div>
   );
 }
