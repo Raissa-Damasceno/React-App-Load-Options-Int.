@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -5,18 +6,42 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import SyncIcon from "@mui/icons-material/Sync";
+
 import AddItem from "./AddItem";
 import DeleteItem from "./DeleteItem";
-import LoadList from "./Load";
 
-function TableData({ data, setData }) {
+function LoadTable() {
+  const [data, setData] = useState();
+
+  const handleLoad = async() => {
+    try {
+      const response = await fetch(
+        `http://universities.hipolabs.com/search?country=Australia`
+      );
+  
+      let result = await response.json();
+      setData(result);
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   return (
     <>
-      <AddItem data={data} setData={setData} />
-      <DeleteItem data={data} setData={setData} />
-      <LoadList />
+    <Button
+    onClick={() => handleLoad()}
+    variant="outlined"
+    startIcon={<SyncIcon />}
+  >
+    Load List
+  </Button>
 
-      <TableContainer component={Paper}>
+    <AddItem data={data} setData={setData} />
+    <DeleteItem data={data} setData={setData} />
+  
+  <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
@@ -46,8 +71,8 @@ function TableData({ data, setData }) {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+      </>
   );
 }
 
-export default TableData;
+export default LoadTable;

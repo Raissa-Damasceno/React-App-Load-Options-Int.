@@ -1,8 +1,5 @@
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import { useState } from "react";
-
-
 
 function DeleteItem({data, setData}) {
   const index = (newArr) =>{
@@ -11,16 +8,16 @@ function DeleteItem({data, setData}) {
     }
   }
 
-    const handleRemove = (d) => {
-        const newArr = [...data];
-        let i = index(newArr)
+  const handleRemove = (d) => {
+    const newArr = [...data];
+     let i = index(newArr)
 
-        if(i >= 0) {
+      if(i >= 0) {
           newArr.splice(i, 1);
           setData(newArr);
           console.log(`Remove the index ${i}`);
         } else (
-          console.log('Não há mais items para ser deletados'))
+          console.log('Não há mais items para serem deletados'))
       };
 
   return (

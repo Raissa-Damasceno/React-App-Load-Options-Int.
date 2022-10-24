@@ -1,10 +1,10 @@
 import './App.css';
-import Api from './api/api'
+import TablePage from './Page/TablePage'
 
 function App() {
   return (
     <div className="table">
-    <Api />
+    <TablePage />
     </div>
   );
 }
