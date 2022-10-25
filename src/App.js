@@ -1,11 +1,9 @@
-import './App.css';
-import TablePage from './Page/TablePage'
+import "./App.css";
+import TablePage from "./Page/TablePage";
 
 function App() {
   return (
-    <div className="container">
-    <TablePage />
-    </div>
+      <TablePage />
   );
 }
 

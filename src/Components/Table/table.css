@@ -1,0 +1,97 @@
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+    background-color: #5f35a2!important;
+    height: 100%;
+    min-height: 90%;
+    width: 100%;
+    max-width: 80%;
+    
+}
+
+.css-17ww8e5-MuiButtonBase-root-MuiButton-root, 
+.css-1mvttgo-MuiButtonBase-root-MuiButton-root, 
+.css-1mvttgo-MuiButtonBase-root-MuiButton-root {
+    border: 1px solid rgba(255, 255, 255, 0.5)!important;
+    color: white !important;
+    background-color: #482680!important;
+    width: 100%;
+    height: 50px;
+    transition: 1ms;
+    font-size: 15px!important;
+}
+
+.css-17ww8e5-MuiButtonBase-root-MuiButton-root:hover, 
+.css-1mvttgo-MuiButtonBase-root-MuiButton-root:hover, 
+.css-1mvttgo-MuiButtonBase-root-MuiButton-root:hover  {
+    border: 1px solid rgba(255, 255, 255, 0.5)!important;
+    color: #320973 !important;
+    background-color: #eee3fe!important;
+    opacity: 0.7;
+    font-weight: bold;
+
+}
+
+.MuiTableHead-root {
+    background-color: #320973!important;
+    width: 100%!important;
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.css-1ndpvdd-MuiTableCell-root {
+    color: white!important;
+    min-width: 100%!important;
+    width: 200px;
+}
+
+.css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar{
+    background-color: #320973!important;
+    color: white;
+    font-weight: bold;
+}
+
+.button-div{
+    display: inline-grid;
+}
+
+.MuiTableRow-root {
+    background-color: #eee3fe!important;
+
+}
+
+.MuiTableCell-root{
+    width: 150px;
+    max-width: 150px;
+    min-width: 150px;
+}
+
+.css-vlo14i-MuiGrid-root{
+    margin: 30px 146px!important;
+}
+
+.section-table{
+    background: url('../../../public/robot.png') no-repeat right;
+    opacity: 0.9;
+    width: 100%;
+    height: 80vh;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root{
+    width: 100px;
+    opacity: 0.9;
+}
+
+.css-vlo14i-MuiGrid-root{
+    margin: 10px 10%;
+}
+
+button:disabled{
+color: white!important;
+}
+
+.css-i4bv87-MuiSvgIcon-root{
+    color:white;
+}

@@ -1,19 +1,27 @@
 import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableFooter from "@mui/material/TableFooter";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
+import {
+  TableHead,
+  TableCell,
+  TableContainer,
+  TablePagination,
+  TableRow,
+  Table,
+  Paper,
+  IconButton,
+  Grid,
+} from "@mui/material";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
+
+import AddItem from "./AddItem";
+import DeleteItem from "./DeleteItem";
+import LoadTable from "./LoadTable";
+
+import "./table.css";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -77,9 +85,23 @@ function TablePaginationActions(props) {
   );
 }
 
-function List({ data }) {
-  const [page, setPage] = useState(1);
+function List() {
+  const [data, setData] = useState();
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleLoad = async () => {
+    try {
+      const response = await fetch(
+        `http://universities.hipolabs.com/search?country=Australia`
+      );
+
+      let result = await response.json();
+      setData(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -90,24 +112,30 @@ function List({ data }) {
     setPage(0);
   };
 
-  const emptyRows =
-    page > 0
-      ? Math.max(0, (1 + page) * rowsPerPage - data ? data.length : 0)
-      : 0;
-
   return (
-    <>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-          <TableRow>
-            <TableCell align="center">Name</TableCell>
-            <TableCell align="center">Country</TableCell>
-            <TableCell align="center">Country Code</TableCell>
-            <TableCell align="center">Web Site</TableCell>
-            <TableCell align="center">Domains</TableCell>
-          </TableRow>
+    <div className="container-table">
+      <Grid
+        sx={{
+          display: "grid",
+          gridAutoColumns: "1fr",
+          gap: 5,
+        }}
+      >
+        <LoadTable handleLoad={handleLoad} />
+        <AddItem data={data} setData={setData} />
+        <DeleteItem data={data} setData={setData} />
+      </Grid>
+      <section className="section-table">
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableCell align="center">Name</TableCell>
+              <TableCell align="center">Country</TableCell>
+              <TableCell align="center">Country Code</TableCell>
+              <TableCell align="center">Web Site</TableCell>
+              <TableCell align="center">Domains</TableCell>
+            </TableHead>
 
-          <TableBody>
             {data &&
               (rowsPerPage > 0
                 ? data.slice(
@@ -115,36 +143,29 @@ function List({ data }) {
                     page * rowsPerPage + rowsPerPage
                   )
                 : data
-              ).map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row" align="center">
+              ).map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell component="th" scope="row" align="left">
                     {row.name}
                   </TableCell>
-                  <TableCell style={{ width: 160 }} align="center">
+                  <TableCell component="th" scope="row" align="center">
                     {row.country}
                   </TableCell>
-                  <TableCell style={{ width: 160 }} align="center">
+                  <TableCell component="th" scope="row" align="center">
                     {row.alpha_two_code}
                   </TableCell>
-                  <TableCell style={{ width: 160 }} align="center">
+                  <TableCell component="th" scope="row" align="center">
                     {row.web_pages}
                   </TableCell>
-                  <TableCell style={{ width: 160 }} align="center">
+                  <TableCell component="th" scope="row" align="center">
                     {row.domains}
                   </TableCell>
                 </TableRow>
               ))}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
-              </TableRow>
-            )}
-          </TableBody>
-          <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                colSpan={3}
+                rowsPerPageOptions={[10, { label: "All", value: -1 }]}
+                colSpan={6}
                 count={data ? data.length : 0}
                 rowsPerPage={rowsPerPage}
                 page={page}
@@ -159,10 +180,10 @@ function List({ data }) {
                 ActionsComponent={TablePaginationActions}
               />
             </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
-    </>
+          </Table>
+        </TableContainer>
+      </section>
+    </div>
   );
 }
 
